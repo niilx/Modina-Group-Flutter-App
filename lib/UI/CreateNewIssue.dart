@@ -100,7 +100,7 @@ class _CreateNewIssuePageState extends State<CreateNewIssuePage> {
           child: Text("OK"),
           color: Colors.greenAccent,
           onPressed: () {
-            Navigator.of(context);
+            Navigator.pop(context);
           },
         )
       ],
@@ -629,7 +629,7 @@ class _CreateNewIssuePageState extends State<CreateNewIssuePage> {
                     String createdBy = "Touhidul Islam";
                     issue.issueCreatedDates = createdDate;
                     issue.issueCreatedBys = createdBy;
-                    issue.issueStatuss = "Start";
+                    issue.issueStatuss = "OPENED";
                     issue.issueCodes = "BD-912-1";
 
                     if(

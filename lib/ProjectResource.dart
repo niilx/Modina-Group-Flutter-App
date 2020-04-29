@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modina_group_flutter_app_demo/UI/CreateNewIssue.dart';
 import 'package:modina_group_flutter_app_demo/UI/dashboard.dart';
 import 'package:modina_group_flutter_app_demo/UI/userLogin.dart';
+import 'package:modina_group_flutter_app_demo/Utils/SharedPref.dart';
 
 class ProjectResource {
 
@@ -31,7 +32,9 @@ class ProjectResource {
                   child: Text("LOG OUT"),
                   onTap: (){
                     print("Logout");
+                    SharedPref.remove("user");
                     Navigator.pop(context);
+                    userID = "";
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
                       return UserLoginPage();
                     }));
@@ -94,7 +97,7 @@ class ProjectResource {
           title: Text("Pending Issue List"),
           leading: Icon(Icons.watch),
         ),
-        ListTile(
+       userID=="assigned@demo.com"?Container(): ListTile(
           title: Text("Create New Issue"),
           leading: Icon(Icons.add),
           onTap: (){

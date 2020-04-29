@@ -59,7 +59,7 @@ class DatabaseHelper {
 
   Future<List<Map>> getAllIssues() async {
     Database db = await this.database;
-    var result = await db.rawQuery("SELECT * FROM $issueTable");
+    var result = await db.rawQuery("SELECT * FROM $issueTable ORDER BY $colCreatedDate DESC");
 
     return result;
   }

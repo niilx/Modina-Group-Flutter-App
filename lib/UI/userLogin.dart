@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:modina_group_flutter_app_demo/ProjectResource.dart';
 import 'package:modina_group_flutter_app_demo/UI/dashboard.dart';
+import 'package:modina_group_flutter_app_demo/Utils/SharedPref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserLoginPage extends StatefulWidget {
   @override
@@ -14,15 +16,19 @@ class _UserLoginPageState extends State<UserLoginPage> {
   TextEditingController userID = TextEditingController();
   TextEditingController userPass = TextEditingController();
 
+
   var ListofUsers = [
     "demo@demo.com", "assigned@demo.com", "auditor@demo.com", "issuer@demo.com"
   ];
 
-  login() async {
 
+
+  login() async {
+    SharedPreferences  preferences = await SharedPreferences.getInstance();
     if(userID.text.isNotEmpty && userPass.text.isNotEmpty){
       if(ListofUsers.contains(userID.text.toString()) && userPass.text.toString() =="123456"){
         await new Future.delayed(const Duration(seconds: 2));
+        SharedPref.save("user", userID.text.toString());
         Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return DashboardPage(userID.text.toString());
