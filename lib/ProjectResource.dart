@@ -3,13 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:modina_group_flutter_app_demo/UI/CreateNewIssue.dart';
 import 'package:modina_group_flutter_app_demo/UI/dashboard.dart';
+import 'package:modina_group_flutter_app_demo/UI/userLogin.dart';
 
 class ProjectResource {
 
   static Color appBarColor = Color(0xFF9C640C);
   static BuildContext currentContext;
   static var pageState;
-
+  static String userID;
   static userDrawer(var context, var state){
     currentContext = context;
     pageState = state;
@@ -19,7 +20,7 @@ class ProjectResource {
           decoration: BoxDecoration(
               color: ProjectResource.appBarColor
           ),
-          accountName: Text("Md. Touhidul Islam"),
+          accountName: Text("DEMO USER ($userID)"),
           accountEmail: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -30,6 +31,11 @@ class ProjectResource {
                   child: Text("LOG OUT"),
                   onTap: (){
                     print("Logout");
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return UserLoginPage();
+                    }));
+
                   },
                 ),
               )
@@ -56,7 +62,7 @@ class ProjectResource {
           onTap: (){
             Navigator.pop(context);
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return DashboardPage();
+              return DashboardPage(userID);
             }));
           },
         ),
@@ -94,7 +100,7 @@ class ProjectResource {
           onTap: (){
             Navigator.pop(context);
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return CreateNewIssuePage();
+              return CreateNewIssuePage(userID);
             }));
           },
         ),

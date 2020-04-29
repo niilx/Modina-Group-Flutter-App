@@ -14,6 +14,65 @@ class _UserLoginPageState extends State<UserLoginPage> {
   TextEditingController userID = TextEditingController();
   TextEditingController userPass = TextEditingController();
 
+  var ListofUsers = [
+    "demo@demo.com", "assigned@demo.com", "auditor@demo.com", "issuer@demo.com"
+  ];
+
+  login() async {
+
+    if(userID.text.isNotEmpty && userPass.text.isNotEmpty){
+      if(ListofUsers.contains(userID.text.toString()) && userPass.text.toString() =="123456"){
+        await new Future.delayed(const Duration(seconds: 2));
+        Navigator.pop(context);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return DashboardPage(userID.text.toString());
+        }));
+        //                                      showDialog(
+        //                                          context: context,
+        //                                          builder: (BuildContext context) {
+        //                                            return Center(
+        //                                              child:
+        //                                              //CircularProgressIndicator can be used without any package
+        //                                              SpinKitCircle(
+        //                                                color: Color(0xffff3a5a),
+        //                                                size: 80.0,
+        //                                              ),
+        //                                            );
+        //                                          });
+        //await _login();
+      }else{
+        _showAlert('Invalid User/Password, Try Again Please');
+        await new Future.delayed(const Duration(seconds: 1));
+      }
+    }else{
+      _showAlert( 'Failed, Please input user/password');
+      await new Future.delayed(const Duration(seconds: 1));
+    }
+  }
+
+  _showAlert(String t) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+
+            title: Text("Status"),
+            content: Text(t),
+            actions: <Widget>[
+              RaisedButton(
+                child: Text("OK"),
+                color: Colors.greenAccent,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   getLoginView(){
     return Stack(
       children: <Widget>[
@@ -61,7 +120,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                     border: OutlineInputBorder(
                                         borderSide: new BorderSide(color: Colors.black54)),
                                     contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                                    EdgeInsets.symmetric(horizontal: 12, vertical: 13)),
                               ),
                             ),
                             SizedBox(height: 20,),
@@ -82,7 +141,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                     border: OutlineInputBorder(
                                         borderSide: new BorderSide(color: Colors.black54)),
                                     contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
+                                    EdgeInsets.symmetric(horizontal: 12, vertical: 13)),
                               ),
                             ),
                             SizedBox(height: 12,),
@@ -111,24 +170,17 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                             fontSize: 15),
                                       ),
                                       onPressed: () async {
-                                        print("Save this");
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                          return DashboardPage();
-                                        }));
-//                                      showDialog(
-//                                          context: context,
-//                                          builder: (BuildContext context) {
-//                                            return Center(
-//                                              child:
-//                                              //CircularProgressIndicator can be used without any package
-//                                              SpinKitCircle(
-//                                                color: Color(0xffff3a5a),
-//                                                size: 80.0,
-//                                              ),
-//                                            );
-//                                          });
-                                      //  await _login();
-                                      },
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Center(
+                                                child:
+                                                //CircularProgressIndicator can be used without any package
+                                                CircularProgressIndicator()
+                                              );
+                                            });
+                                        await login();
+                                      }
                                     ),
                                   ),
                            ),
