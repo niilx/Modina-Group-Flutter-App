@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:modina_group_flutter_app_demo/Models/issues.dart';
 import 'package:modina_group_flutter_app_demo/ProjectResource.dart';
 import 'package:modina_group_flutter_app_demo/Utils/DatabaseHelper.dart';
+import 'package:simple_progress_bar/progress_bar.dart';
+import 'package:pie_chart/pie_chart.dart';
+
 
 
 class DashboardPage extends StatefulWidget {
@@ -24,9 +27,25 @@ class _DashboardPageState extends State<DashboardPage> {
     print(ProjectResource.userID);
     users();
 
+    //For Pie Chart
+    dataMap.putIfAbsent("Completed", () => 6);
+    dataMap.putIfAbsent("In Progress", () => 24);
+    dataMap.putIfAbsent("Pending", () => 9);
+    dataMap.putIfAbsent("Rejected", () => 3);
+
   }
 
+  double screenWidth;
   var issues;
+
+  Map<String, double> dataMap = new Map();
+  List<Color> colorList = [
+  Colors.green,Colors.red,
+    Colors.blue,
+    Colors.deepPurple,
+  ];
+
+
   users() async {
 
      var db = DatabaseHelper();
@@ -166,11 +185,25 @@ class _DashboardPageState extends State<DashboardPage> {
                               Text(snapshot.data[index]["created_date"]),
                               Text("")
                             ],),
-                          margins,
-                          LinearProgressIndicator(
-                            backgroundColor: Colors.green, value: 100,
+                          ProgressBar(
+                              padding: 5,
+                              barColor: Colors.green,
+                              barHeight: 7,
+                              backgroundColor: Colors.grey[300],
+                              barWidth: screenWidth*0.9,
+                              numerator: 3,
+                              denominator: 10,
+                              title: '',
+                              showRemainder: false,
+                              dialogTextStyle: new TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              titleStyle: new TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.transparent)
                           ),
-                          margins
 
                         ],
                       ),
@@ -315,11 +348,27 @@ class _DashboardPageState extends State<DashboardPage> {
                                 Text("2020-04-12 12:24 PM"),
                                 Text("")
                               ],),
-                            margins,
-                            LinearProgressIndicator(
-                              backgroundColor: Colors.green, value: 100,
+
+                            ProgressBar(
+                              padding: 5,
+                              barColor: Colors.green,
+                              barHeight: 7,
+                              backgroundColor: Colors.grey[300],
+                              barWidth: screenWidth*0.9,
+                              numerator: 3,
+                              denominator: 10,
+                              title: '',
+                              showRemainder: false,
+                                dialogTextStyle: new TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                titleStyle: new TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.transparent)
                             ),
-                            margins
+
 
                           ],
                         ),
@@ -331,7 +380,296 @@ class _DashboardPageState extends State<DashboardPage> {
         )
     );
   }
-  
+
+
+  getAuditorDashboard() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: ListView(
+        children: <Widget>[
+          //Issues Overall
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Card(
+                child: Container(
+                  width: screenWidth*0.45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: screenWidth*0.09,
+                        height: 40,
+                        color: Colors.blue,
+                      child: Icon(Icons.assignment,color: Colors.white,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text("Total Issues",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                            Text("42",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                child: Container(
+                  width: screenWidth*0.45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: screenWidth*0.09,
+                        height: 40,
+                        color: Colors.green,
+                        child: Icon(Icons.done_all,color: Colors.white,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text("Completed Issues",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                            Text("6",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Card(
+                child: Container(
+                  width: screenWidth*0.45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: screenWidth*0.09,
+                        height: 40,
+                        color: Colors.orange,
+                        child: Icon(Icons.directions_run,color: Colors.white,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text("In Progress",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                            Text("24",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Card(
+                child: Container(
+                  width: screenWidth*0.45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: screenWidth*0.09,
+                        height: 40,
+                        color: Colors.red,
+                        child: Icon(Icons.remove_shopping_cart,color: Colors.white,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text("Rejected Issues",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                            Text("3",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Card(
+                child: Container(
+                  width: screenWidth*0.45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: screenWidth*0.09,
+                        height: 40,
+                        color: Colors.orange,
+                        child: Icon(Icons.pause_circle_outline,color: Colors.white,),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text("Pending Issues",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                            Text("9",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14)),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Container()
+            ],
+          ),
+          margins,
+          Divider(),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              margins,
+              Text("Total Issues",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+              margins,
+              marginsSmall,
+              margins,
+              PieChart(
+                dataMap: dataMap,
+                animationDuration: Duration(milliseconds: 800),
+                chartLegendSpacing: 32.0,
+                chartRadius: MediaQuery.of(context).size.width / 2.5,
+                showChartValuesInPercentage: false,
+                showChartValues: true,
+                showChartValuesOutside: true,
+                chartValueBackgroundColor: Colors.transparent,
+                colorList: colorList,
+                showLegends: true,
+                legendPosition: LegendPosition.right,
+                decimalPlaces: 0,
+                showChartValueLabel: true,
+                initialAngle: 0,
+                chartValueStyle: defaultChartValueStyle.copyWith(
+                  color: Colors.white.withOpacity(0.9),
+                ),
+                chartType: ChartType.ring,
+              ),
+              margins,
+              margins,
+              margins,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Center(
+                    child: Container(width: screenWidth,
+                    padding: EdgeInsets.all(8),
+                    color: Colors.grey[300],
+                      height: 30,
+                      child: Text("UNIT",textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                    ),
+                  ),
+                  margins,
+                  marginsSmall,
+                  Card(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: screenWidth*0.4,
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.local_printshop),
+                              Text("Gaston Battery")
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          Divider(color: Colors.black,),
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("Total Issues",style: TextStyle(fontWeight: FontWeight.bold),),
+                              Text("42",style: TextStyle(fontWeight: FontWeight.w400),),
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("Completed",style: TextStyle(color: Colors.green),),
+                              Text("6",style: TextStyle(fontWeight: FontWeight.w400),),
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("Pending Issues",style: TextStyle(color: Colors.orange),),
+                              Text("9",style: TextStyle(fontWeight: FontWeight.w400),),
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("Rejected Issues",style: TextStyle(color: Colors.red),),
+                              Text("3",style: TextStyle(fontWeight: FontWeight.w400),),
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text("In Progress",style: TextStyle(color: Colors.blue ),),
+                              Text("24",style: TextStyle(fontWeight: FontWeight.w400),),
+                            ],
+                          ),
+                          SizedBox(height: 5,),
+                          SizedBox(height: 5,),
+
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+
+            ],
+          )
+
+
+
+        ],
+      ),
+    );
+  }
   
   
   @override
@@ -341,11 +679,15 @@ class _DashboardPageState extends State<DashboardPage> {
         statusBarColor: ProjectResource.appBarColor
     ));
 
+   screenWidth = MediaQuery. of(context). size. width;
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        centerTitle: ProjectResource.userID == "auditor@demo.com"?false: true,
         backgroundColor: ProjectResource.appBarColor,
-        title: Text("Assigned Issue List", style: TextStyle(color: Colors.white),),
+        title: ProjectResource.userID == "auditor@demo.com"?
+        Text("Dashboard", style: TextStyle(color: Colors.white),):
+        Text("Assigned Issue List", style: TextStyle(color: Colors.white),),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search, color: Colors.white,),
@@ -356,6 +698,7 @@ class _DashboardPageState extends State<DashboardPage> {
       body: SafeArea(
         child: ProjectResource.userID == "demo@demo.com"?getAssignedIssuesDemo():
         ProjectResource.userID == "issuer@demo.com"?getIssuerIssues():
+        ProjectResource.userID == "auditor@demo.com"?getAuditorDashboard():
         getAssignedIssues(),
       ),
 

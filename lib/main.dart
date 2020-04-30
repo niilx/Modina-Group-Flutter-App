@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:modina_group_flutter_app_demo/ProjectResource.dart';
 import 'package:modina_group_flutter_app_demo/UI/dashboard.dart';
 import 'package:modina_group_flutter_app_demo/UI/userLogin.dart';
 import 'package:modina_group_flutter_app_demo/Utils/SharedPref.dart';
@@ -43,8 +45,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Madina App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

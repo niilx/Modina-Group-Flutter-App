@@ -209,6 +209,7 @@ class _CreateNewIssuePageState extends State<CreateNewIssuePage> {
                 color: Color(0xffe7e7e7),
               ),
               onChanged: (String newValue) {
+                FocusScope.of(context).requestFocus(FocusNode());
                 setState(() {
                   priorityL = newValue;
                   issue.issuePrioritys = priorityL;
@@ -636,6 +637,8 @@ class _CreateNewIssuePageState extends State<CreateNewIssuePage> {
                     issueTitle.text.isNotEmpty && asigneeSelects.isNotEmpty && unitSelects.isNotEmpty && deptSelects.isNotEmpty
                     ) {
                       insertIssue(issue);
+                    }else{
+                      _showAlert("Please Provide All Info");
                     }
                       print("Save this");
                   });

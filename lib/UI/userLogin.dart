@@ -243,10 +243,10 @@ class _UserLoginPageState extends State<UserLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white
-    ));
+//
+//      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//          statusBarColor: Colors.white
+//      ));
 
     return Scaffold(
       body: SafeArea(

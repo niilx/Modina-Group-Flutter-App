@@ -42,7 +42,7 @@ class DatabaseHelper {
 
   Future<Database> initializeDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = directory.path + 'madinagroup.db';
+    String path = directory.path + 'madinagroup3.db';
 
     var regDatabase = await openDatabase(path, version: 1, onCreate: _createDb);
     return regDatabase;
@@ -51,7 +51,7 @@ class DatabaseHelper {
 
   void _createDb(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE $issueTable($colIssueID INTEGER AUTOINCREMENT, $colIssueCode TEXT, $colIssueStatus TEXT,$colIssue TEXT, $colIssuePriority TEXT,$colStartDate TEXT, $colEndDate TEXT , $colUnit TEXT, $colDept TEXT, $colCreatedBy TEXT,$colAssignedTo TEXT,$colCreatedDate TEXT)');
+        'CREATE TABLE $issueTable($colIssueID INTEGER, $colIssueCode TEXT, $colIssueStatus TEXT,$colIssue TEXT, $colIssuePriority TEXT,$colStartDate TEXT, $colEndDate TEXT , $colUnit TEXT, $colDept TEXT, $colCreatedBy TEXT,$colAssignedTo TEXT,$colCreatedDate TEXT)');
 
   }
 

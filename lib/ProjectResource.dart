@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:modina_group_flutter_app_demo/UI/CreateNewIssue.dart';
+import 'package:modina_group_flutter_app_demo/UI/TotalIssuesPage.dart';
 import 'package:modina_group_flutter_app_demo/UI/dashboard.dart';
 import 'package:modina_group_flutter_app_demo/UI/userLogin.dart';
 import 'package:modina_group_flutter_app_demo/Utils/SharedPref.dart';
@@ -21,7 +22,7 @@ class ProjectResource {
           decoration: BoxDecoration(
               color: ProjectResource.appBarColor
           ),
-          accountName: Text("DEMO USER ($userID)"),
+          accountName: Text("DEMO ($userID)"),
           accountEmail: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -60,7 +61,7 @@ class ProjectResource {
 
         ),
         ListTile(
-          title: Text("Assigned Issue List"),
+          title: userID == "auditor@demo.com"?Text("Dashboard"): Text("Assigned Issue List"),
           leading: Icon(Icons.assignment),
           onTap: (){
             Navigator.pop(context);
@@ -72,30 +73,72 @@ class ProjectResource {
         ListTile(
           title: Text("Total Issue List"),
           leading: Icon(Icons.assignment_ind),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "Total Issue List" ,);
+            }));
+          },
         ),
         ListTile(
           title: Text("Urgent Issue List"),
           leading: Icon(Icons.important_devices),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "Urgent Issue List" ,);
+            }));
+          },
         ),
         ListTile(
           title: Text("Associate Issue List"),
           leading: Icon(Icons.new_releases),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "Associate Issue List" ,);
+            }));
+          },
         ),
         ListTile(
           title: Text("Completed Issue List"),
           leading: Icon(Icons.done_outline),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "Completed Issue List" ,);
+            }));
+          },
         ),
         ListTile(
           title: Text("In Progress Issue List"),
           leading: Icon(Icons.directions_run),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "In Progress Issue List" ,);
+            }));
+          },
         ),
         ListTile(
           title: Text("Rejected Issue List"),
           leading: Icon(Icons.cancel),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "Rejected Issue List" ,);
+            }));
+          },
         ),
         ListTile(
           title: Text("Pending Issue List"),
           leading: Icon(Icons.watch),
+          onTap: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return TotalIssues(appBarText: "Pending Issue List" ,);
+            }));
+          },
         ),
        userID=="assigned@demo.com"?Container(): ListTile(
           title: Text("Create New Issue"),
@@ -116,7 +159,13 @@ class ProjectResource {
           leading: Icon(Icons.chat),
         ),
         ListTile(
-          title: Text("Notifications"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text("Notifications"),
+              Text("21"),
+            ],
+          ),
           leading: Icon(Icons.notifications),
         ),
         ListTile(
