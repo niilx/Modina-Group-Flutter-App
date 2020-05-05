@@ -51,9 +51,12 @@ class _DashboardPageState extends State<DashboardPage> {
      var db = DatabaseHelper();
 
      issues = await db.getAllIssues();
-     print(issues);
-     //print(Issues.fromMap(issues[0]["issue_code"]));
+    // print(issues);
+     dynamic responseData;
+     responseData = issues;
+     print(responseData[0]["issue"]);
      for (int i = 0; i < issues.length; i++) {
+       print(responseData[i]["issue"]);
        Issues issue = Issues.fromMap(issues[i]);
        print("User $i : ${issue.issue}\n${issue.issueAssignedTo}\n ${issue.issueCreatedBy}\n");
      }
